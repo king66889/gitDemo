@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<!--  当前项目的坐标信息-->
+<groupId>com.demo.test</groupId>
+<artifactId>helloworld</artifactId>
+<version>1.0-SNAPSHOT</version>
+
+<dependencies>
+  <dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>6.14.3</version>
+    <scope>test</scope>
+  </dependency>
+
+  <dependency>
+    <groupId>org.selenium</groupId>
+    <artifactId>selenium-server-standalone</artifactId>
+    <version>4.0.0</version>
+  </dependency>
+</dependencies>
+
+  <!--设置打包的类型为 jar 包-->
+  <packaging>jar</packaging>
+
+<!--  自定义的属性设置，可以自己进行配置和修改-->
+<properties>
+  <!--  maven 编译代码使用的jdk版本  -->
+  <maven.compiler.source>17</maven.compiler.source>
+  <!--  maven 执行代码使用的jdk版本  -->
+  <maven.compiler.target>17</maven.compiler.target>
+  <!--  maven 编译使用的编码  -->
+  <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+  <!--  maven 进行项目构建使用的编码，避免中文乱码  -->
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <!--  maven 生成项目报告使用的编码  -->
+  <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+</properties>
+
+<!--  依赖中默认带有一个 junit 单元测试-->
+
+<build>
+  <!-- 指定最后构建打包成功的压缩包的名字 -->
+  <finalName>helloworld-maven-java</finalName>
+
+  <plugins>
+    <!-- 1.maven 打包时跳过测试 -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId> <!-- 测试使用到的插件 -->
+      <configuration>
+        <skip>true</skip><!-- 声明跳过测试 -->
+      </configuration>
+    </plugin>
+
+    <!-- 2.1 maven 打包时指定main方法 -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <configuration>
+        <classesDirectory>target/classes</classesDirectory>
+        <archive>
+          <manifest>
+            <mainClass>com.demo.test.HelloWorld</mainClass>
+            <useUniqueVersions>false</useUniqueVersions>
+            <addClasspath>true</addClasspath>
+            <classpathPrefix>libs/</classpathPrefix>
+          </manifest>
+          <manifestEntries>
+            <Class-Path>.</Class-Path>
+          </manifestEntries>
+        </archive>
+      </configuration>
+    </plugin>
+
+  </plugins>
+</build>
+
+
+</project>
+
